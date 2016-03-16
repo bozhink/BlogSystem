@@ -17,8 +17,8 @@
 
         public virtual Post Post { get; set; }
 
-        public virtual int AuhtorId { get; set; }
+        public virtual string UserId { get; set; }
 
-        public virtual Author Author { get; set; }
+        public virtual User User { get; set; }
     }
 }

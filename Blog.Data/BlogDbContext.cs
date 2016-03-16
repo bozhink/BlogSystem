@@ -5,14 +5,12 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
 
-    public class BlogDbContext : IdentityDbContext<ApplicationUser>
+    public class BlogDbContext : IdentityDbContext<User>
     {
         public BlogDbContext()
             : base("BlogDbContext", throwIfV1Schema: false)
         {
         }
-
-        public IDbSet<Author> Authors { get; set; }
 
         public IDbSet<Comment> Comments { get; set; }
 

@@ -26,9 +26,9 @@
 
         public DateTime Date { get; set; }
 
-        public virtual int AuthorId { get; set; }
+        public virtual string UserId { get; set; }
 
-        public virtual Author Author { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<Comment> Comments
         {
