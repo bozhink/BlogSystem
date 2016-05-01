@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "All Posts";
 }
-
 @foreach (var post in Model)
 {
     <h2>@post.Title by @post.Author on @post.CreatedAtUtc</h2>

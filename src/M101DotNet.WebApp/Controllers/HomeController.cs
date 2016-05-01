@@ -8,8 +8,8 @@
     using System.Web.Mvc;
 
     using Models;
-    using Models.Home;
     using MongoDB.Driver;
+    using ViewModels.Home;
 
     public class HomeController : Controller
     {

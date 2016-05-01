@@ -1,4 +1,4 @@
-﻿namespace M101DotNet.WebApp.Models.Account
+﻿namespace M101DotNet.WebApp.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;

@@ -150,15 +150,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="ViewModels\Account\RegisterModel.cs" />
     <Compile Include="Models\BlogContext.cs" />
-    <Compile Include="Models\Account\LoginModel.cs" />
+    <Compile Include="ViewModels\Account\LoginModel.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\Home\CommentLikeModel.cs" />
-    <Compile Include="Models\Home\NewCommentModel.cs" />
-    <Compile Include="Models\Home\NewPostModel.cs" />
-    <Compile Include="Models\Home\IndexModel.cs" />
-    <Compile Include="Models\Home\PostModel.cs" />
+    <Compile Include="ViewModels\Home\CommentLikeModel.cs" />
+    <Compile Include="ViewModels\Home\NewCommentModel.cs" />
+    <Compile Include="ViewModels\Home\NewPostModel.cs" />
+    <Compile Include="ViewModels\Home\IndexModel.cs" />
+    <Compile Include="ViewModels\Home\PostModel.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\TagProjection.cs" />
     <Compile Include="Models\User.cs" />

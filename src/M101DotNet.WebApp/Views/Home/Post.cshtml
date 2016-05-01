@@ -1,9 +1,7 @@
 ﻿@{
     ViewBag.Title = Model.Post.Title;
 }
-
 <h2>@ViewBag.Title</h2>
-
 <p>@Model.Post.Author</p>
 <p>@Model.Post.CreatedAtUtc</p>
 <p>
@@ -13,7 +11,6 @@
     }
 </p>
 <p>@Model.Post.Content</p>
-
 <h3>Comments</h3>
 @{
     int index = 0;
@@ -33,7 +30,6 @@
     }
     index++;
 }
-
 @if (Request.IsAuthenticated)
 {
     <h3>Add Comment</h3>

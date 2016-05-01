@@ -1,4 +1,4 @@
-﻿namespace M101DotNet.WebApp.Models.Home
+﻿namespace M101DotNet.WebApp.ViewModels.Home
 {
     using System.Web.Mvc;
 

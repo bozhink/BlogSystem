@@ -1,5 +1,7 @@
-﻿namespace M101DotNet.WebApp.Models.Home
+﻿namespace M101DotNet.WebApp.ViewModels.Home
 {
+    using Models;
+
     public class PostModel
     {
         public Post Post { get; set; }
