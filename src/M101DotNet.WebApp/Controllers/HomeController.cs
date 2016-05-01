@@ -145,15 +145,6 @@ namespace M101DotNet.WebApp.Controllers
 
             var blogContext = new BlogContext();
 
-            // XXX WORK HERE
-            // Increment the Likes field for the comment at {model.Index}
-            // inside the post {model.PostId}.
-            //
-            // NOTE: The 2.0.0 driver has a bug in the expression parser and 
-            // might throw an exception depending on how you solve this problem. 
-            // This is documented here along with a workaround:
-            // https://jira.mongodb.org/browse/CSHARP-1246
-
             var index = model.Index;
             var fieldName = string.Format("Comments.{0}.Likes", index);
             await blogContext.Posts.UpdateOneAsync(
