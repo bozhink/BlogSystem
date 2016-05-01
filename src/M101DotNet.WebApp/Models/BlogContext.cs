@@ -5,37 +5,28 @@
 
     public class BlogContext
     {
-        public const string CONNECTION_STRING_NAME = "Blog";
-        public const string DATABASE_NAME = "blog";
-        public const string POSTS_COLLECTION_NAME = "posts";
-        public const string USERS_COLLECTION_NAME = "users";
+        public const string ConnectionStringName = "Blog";
+        public const string DatabaseName = "blog";
+        public const string PostsCollectionName = "posts";
+        public const string UsersCollectionName = "users";
 
         // This is ok... Normally, they would be put into
         // an IoC container.
-        private static readonly IMongoClient client;
+        private readonly IMongoClient client;
 
-        private static readonly IMongoDatabase database;
+        private readonly IMongoDatabase database;
 
-        static BlogContext()
+        public BlogContext()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings[CONNECTION_STRING_NAME].ConnectionString;
-            client = new MongoClient(connectionString);
-            database = client.GetDatabase(DATABASE_NAME);
+            var connectionString = ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString;
+            this.client = new MongoClient(connectionString);
+            this.database = this.client.GetDatabase(DatabaseName);
         }
 
-        public IMongoClient Client
-        {
-            get { return client; }
-        }
+        public IMongoClient Client => this.client;
 
-        public IMongoCollection<Post> Posts
-        {
-            get { return database.GetCollection<Post>(POSTS_COLLECTION_NAME); }
-        }
+        public IMongoCollection<Post> Posts => this.database.GetCollection<Post>(PostsCollectionName);
 
-        public IMongoCollection<User> Users
-        {
-            get { return database.GetCollection<User>(USERS_COLLECTION_NAME); }
-        }
+        public IMongoCollection<User> Users => this.database.GetCollection<User>(UsersCollectionName);
     }
 }
