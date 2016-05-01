@@ -1,14 +1,10 @@
 ﻿namespace M101DotNet.WebApp.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    using Data;
-    using Data.Common.Repositories;
-    using Data.Models;
-
-    using Services;
     using Services.Contracts;
     using Services.Models;
 
@@ -18,11 +14,14 @@
     {
         private readonly IPostsDataService service;
 
-        public HomeController()
+        public HomeController(IPostsDataService service)
         {
-            var provider = new BlogDatabaseProvider();
-            var repository = new GenericRepository<Post>(provider);
-            this.service = new PostsDataService(repository);
+            if (service == null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
+
+            this.service = service;
         }
 
         public async Task<ActionResult> Index()

@@ -1,15 +1,11 @@
 ﻿namespace M101DotNet.WebApp.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
 
-    using Data;
-    using Data.Common.Repositories;
-    using Data.Models;
-
-    using Services;
     using Services.Contracts;
     using Services.Models;
 
@@ -20,11 +16,14 @@
     {
         private readonly IUsersDataService service;
 
-        public AccountController()
+        public AccountController(IUsersDataService service)
         {
-            var provider = new BlogDatabaseProvider();
-            var repository = new GenericRepository<User>(provider);
-            this.service = new UsersDataService(repository);
+            if (service == null)
+            {
+                throw new ArgumentNullException(nameof(service));
+            }
+
+            this.service = service;
         }
 
         [HttpGet]

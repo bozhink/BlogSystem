@@ -106,7 +106,7 @@
 
         public async Task<PostServiceModel> GetPostById(string id)
         {
-            var entity = (await this.repository.Get(id));
+            var entity = await this.repository.Get(id);
             return this.PostToServiceModel.Invoke(entity);
         }
 
