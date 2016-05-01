@@ -45,7 +45,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IPostsDataService.cs" />
     <Compile Include="Contracts\IUsersDataService.cs" />
+    <Compile Include="Models\CommentServiceModel.cs" />
+    <Compile Include="Models\PostServiceModel.cs" />
+    <Compile Include="Models\TagServiceModel.cs" />
     <Compile Include="Models\UserServiceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\UsersDataService.cs" />
