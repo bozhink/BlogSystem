@@ -1,23 +1,22 @@
 ﻿namespace M101DotNet.WebApp.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
     using Data;
-    using Data.Models;
-    using MongoDB.Driver;
-    using ViewModels.Home;
-
-
     using Data.Common.Repositories;
+    using Data.Models;
+
+    using MongoDB.Driver;
 
     using Services;
     using Services.Contracts;
     using Services.Models;
+
+    using ViewModels.Home;
 
     public class HomeController : Controller
     {
@@ -32,23 +31,7 @@
 
         public async Task<ActionResult> Index()
         {
-            var blogContext = new BlogContext();
-            //var recentPosts = await blogContext.Posts.Find(x => true)
-            //    .SortByDescending(x => x.CreatedAtUtc)
-            //    .Limit(10)
-            //    .ToListAsync();
-
             var recentPosts = (await this.service.GetPosts(0, 10)).ToList();
-
-            //var tags = await blogContext.Posts.Aggregate()
-            //    .Project(x => new
-            //    {
-            //        _id = x.Id,
-            //        Tags = x.Tags
-            //    })
-            //    .Unwind(x => x.Tags)
-            //    .Group<TagProjection>("{ _id: '$Tags', Count: { $sum: 1 } }")
-            //    .ToListAsync();
 
             var tags = (await this.service.GetTags()).ToList();
 
@@ -75,18 +58,15 @@
                 return this.View(model);
             }
 
-            var blogContext = new BlogContext();
-            var post = new Post
+            var post = new PostServiceModel
             {
                 Author = User.Identity.Name,
                 Title = model.Title,
                 Content = model.Content,
-                Tags = model.Tags.Split(' ', ',', ';').Where(t => !string.IsNullOrWhiteSpace(t)).ToArray(),
-                CreatedAtUtc = DateTime.UtcNow,
-                Comments = new List<Comment>()
+                Tags = model.Tags.Split(' ', ',', ';').Where(t => !string.IsNullOrWhiteSpace(t)).ToArray()
             };
 
-            await blogContext.Posts.InsertOneAsync(post);
+            await this.service.AddNewPost(post);
 
             return this.RedirectToAction(nameof(this.Post), new { id = post.Id });
         }

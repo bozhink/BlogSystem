@@ -3,11 +3,13 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Contracts;
-    using Models;
 
     using Data.Common.Repositories.Contracts;
     using Data.Models;
+
+    using Models;
 
     public class PostsDataService : IPostsDataService
     {
@@ -23,15 +25,32 @@
             this.repository = repository;
         }
 
-
         public Task<object> AddNewComment(string postId, CommentServiceModel comment)
         {
             throw new NotImplementedException();
         }
 
-        public Task<object> AddNewPost(PostServiceModel post)
+        public async Task<object> AddNewPost(PostServiceModel post)
         {
-            throw new NotImplementedException();
+            if (post == null)
+            {
+                throw new ArgumentNullException(nameof(post));
+            }
+
+            var entity = new Post
+            {
+                Author = post.Author,
+                Content = post.Content,
+                CreatedAtUtc = post.CreatedAtUtc,
+                Tags = post.Tags,
+                Title = post.Title
+            };
+
+            var result = await this.repository.Add(entity);
+
+            post.Id = entity.Id;
+
+            return result;
         }
 
         public Task<PostServiceModel> GetPostById(string id)

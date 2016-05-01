@@ -5,6 +5,12 @@
 
     public class PostServiceModel
     {
+        public PostServiceModel()
+        {
+            this.Comments = new List<CommentServiceModel>();
+            this.CreatedAtUtc = DateTime.UtcNow;
+        }
+
         public string Id { get; set; }
 
         public string Author { get; set; }

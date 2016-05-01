@@ -7,6 +7,11 @@
 
     public class Post
     {
+        public Post()
+        {
+            this.Comments = new List<Comment>();
+        }
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
