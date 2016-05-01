@@ -168,9 +168,22 @@
             return tags.AsQueryable();
         }
 
-        public Task<object> LikeComment(string postId, int index)
+        public async Task<object> LikeComment(string postId, int index)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(postId))
+            {
+                throw new ArgumentNullException(nameof(postId));
+            }
+
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+
+            var post = await this.repository.Get(postId);
+            post.Comments.ElementAt(index).Likes += 1;
+
+            return await this.repository.Update(post);
         }
     }
 }
