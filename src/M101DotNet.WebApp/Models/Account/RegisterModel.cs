@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace M101DotNet.WebApp.Models.Account
+﻿namespace M101DotNet.WebApp.Models.Account
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class RegisterModel
     {
         [Required]

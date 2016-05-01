@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace M101DotNet.WebApp.Models.Home
+﻿namespace M101DotNet.WebApp.Models.Home
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public class NewCommentModel
     {
         [HiddenInput(DisplayValue = false)]

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-
-namespace M101DotNet.WebApp.Models.Home
+﻿namespace M101DotNet.WebApp.Models.Home
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class NewPostModel
     {
         [Required]
