@@ -46,7 +46,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlogContext.cs" />
     <Compile Include="BlogDatabaseProvider.cs" />
     <Compile Include="Contracts\IBlogDatabaseProvider.cs" />
     <Compile Include="Models\Comment.cs" />
