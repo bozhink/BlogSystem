@@ -12,15 +12,33 @@
     using MongoDB.Driver;
     using ViewModels.Home;
 
+
+    using Data.Common.Repositories;
+
+    using Services;
+    using Services.Contracts;
+    using Services.Models;
+
     public class HomeController : Controller
     {
+        private readonly IPostsDataService service;
+
+        public HomeController()
+        {
+            var provider = new BlogDatabaseProvider();
+            var repository = new GenericRepository<Post>(provider);
+            this.service = new PostsDataService(repository);
+        }
+
         public async Task<ActionResult> Index()
         {
             var blogContext = new BlogContext();
-            var recentPosts = await blogContext.Posts.Find(x => true)
-                .SortByDescending(x => x.CreatedAtUtc)
-                .Limit(10)
-                .ToListAsync();
+            //var recentPosts = await blogContext.Posts.Find(x => true)
+            //    .SortByDescending(x => x.CreatedAtUtc)
+            //    .Limit(10)
+            //    .ToListAsync();
+
+            var recentPosts = (await this.service.GetPosts()).ToList();
 
             var tags = await blogContext.Posts.Aggregate()
                 .Project(x => new

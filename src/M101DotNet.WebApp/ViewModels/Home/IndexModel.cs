@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using Data.Models;
 
+    using Services.Models;
+
     public class IndexModel
     {
-        public List<Post> RecentPosts { get; set; }
+        public List<PostServiceModel> RecentPosts { get; set; }
 
         public List<TagProjection> Tags { get; set; }
     }
