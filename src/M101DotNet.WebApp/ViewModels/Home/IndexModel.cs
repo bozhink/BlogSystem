@@ -9,6 +9,6 @@
     {
         public List<PostServiceModel> RecentPosts { get; set; }
 
-        public List<TagProjection> Tags { get; set; }
+        public List<TagServiceModel> Tags { get; set; }
     }
 }

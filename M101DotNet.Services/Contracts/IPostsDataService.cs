@@ -12,7 +12,7 @@
 
         Task<PostServiceModel> GetPostById(string id);
 
-        Task<IQueryable<PostServiceModel>> GetPosts();
+        Task<IQueryable<PostServiceModel>> GetPosts(int skip, int take);
 
         Task<IQueryable<PostServiceModel>> GetPostsByTag(string tag);
 

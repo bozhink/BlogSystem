@@ -38,17 +38,19 @@
             //    .Limit(10)
             //    .ToListAsync();
 
-            var recentPosts = (await this.service.GetPosts()).ToList();
+            var recentPosts = (await this.service.GetPosts(0, 10)).ToList();
 
-            var tags = await blogContext.Posts.Aggregate()
-                .Project(x => new
-                {
-                    _id = x.Id,
-                    Tags = x.Tags
-                })
-                .Unwind(x => x.Tags)
-                .Group<TagProjection>("{ _id: '$Tags', Count: { $sum: 1 } }")
-                .ToListAsync();
+            //var tags = await blogContext.Posts.Aggregate()
+            //    .Project(x => new
+            //    {
+            //        _id = x.Id,
+            //        Tags = x.Tags
+            //    })
+            //    .Unwind(x => x.Tags)
+            //    .Group<TagProjection>("{ _id: '$Tags', Count: { $sum: 1 } }")
+            //    .ToListAsync();
+
+            var tags = (await this.service.GetTags()).ToList();
 
             var model = new IndexModel
             {

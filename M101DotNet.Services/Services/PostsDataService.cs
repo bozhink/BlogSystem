@@ -39,11 +39,22 @@
             throw new NotImplementedException();
         }
 
-        public async Task<IQueryable<PostServiceModel>> GetPosts()
+        public async Task<IQueryable<PostServiceModel>> GetPosts(int skip, int take)
         {
+            if (skip < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(skip));
+            }
+
+            if (take < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(take));
+            }
+
             return (await this.repository.All())
                 .OrderByDescending(p => p.CreatedAtUtc)
-                .Take(10)
+                .Skip(skip)
+                .Take(take)
                 .ToList()
                 .Select(p => new PostServiceModel
                 {
@@ -69,9 +80,29 @@
             throw new NotImplementedException();
         }
 
-        public Task<IQueryable<TagServiceModel>> GetTags()
+        // TODO: needs revision
+        public async Task<IQueryable<TagServiceModel>> GetTags()
         {
-            throw new NotImplementedException();
+            var tags = (await this.repository.All())
+                .Select(p => new
+                {
+                    Id = p.Id,
+                    Tags = p.Tags
+                })
+                .ToList()
+                .SelectMany(p => p.Tags.Select(t => new
+                {
+                    Id = p.Id,
+                    Tag = t
+                }))
+                .GroupBy(x => x.Tag)
+                .Select(g => new TagServiceModel
+                {
+                    Name = g.Key,
+                    Count = g.Select(x => x.Id).Distinct().Count()
+                });
+
+            return tags.AsQueryable();
         }
 
         public Task<object> LikeComment(string postId, int index)
