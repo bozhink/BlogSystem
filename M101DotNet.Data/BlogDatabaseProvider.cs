@@ -1,6 +1,5 @@
 ﻿namespace M101DotNet.Data
 {
-    using System;
     using System.Configuration;
     using Contracts;
     using MongoDB.Driver;
