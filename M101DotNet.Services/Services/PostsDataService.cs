@@ -75,14 +75,7 @@
                 throw new ArgumentNullException(nameof(post));
             }
 
-            var entity = new Post
-            {
-                Author = post.Author,
-                Content = post.Content,
-                CreatedAtUtc = post.CreatedAtUtc,
-                Tags = post.Tags,
-                Title = post.Title
-            };
+            var entity = this.PostToDataModel.Invoke(post);
 
             var result = await this.repository.Add(entity);
 
