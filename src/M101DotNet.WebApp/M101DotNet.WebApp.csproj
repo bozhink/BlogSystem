@@ -221,9 +221,17 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\M101DotNet.Data.Common\M101DotNet.Data.Common.csproj">
+      <Project>{41c03a77-6a6d-4dd8-a712-0c5d4584fd18}</Project>
+      <Name>M101DotNet.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\M101DotNet.Data\M101DotNet.Data.csproj">
       <Project>{6694dc91-7b41-4d65-a0fd-6dcdcc887419}</Project>
       <Name>M101DotNet.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\M101DotNet.Services\M101DotNet.Services.csproj">
+      <Project>{1d928244-4dd3-46af-ba20-9882024427ca}</Project>
+      <Name>M101DotNet.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

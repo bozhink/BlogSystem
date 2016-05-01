@@ -45,10 +45,24 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IUsersDataService.cs" />
+    <Compile Include="Models\UserServiceModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UsersDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\M101DotNet.Data.Common\M101DotNet.Data.Common.csproj">
+      <Project>{41c03a77-6a6d-4dd8-a712-0c5d4584fd18}</Project>
+      <Name>M101DotNet.Data.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\M101DotNet.Data\M101DotNet.Data.csproj">
+      <Project>{6694dc91-7b41-4d65-a0fd-6dcdcc887419}</Project>
+      <Name>M101DotNet.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
