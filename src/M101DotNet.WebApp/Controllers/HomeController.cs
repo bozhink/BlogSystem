@@ -74,9 +74,7 @@
         [HttpGet]
         public async Task<ActionResult> Post(string id)
         {
-            var blogContext = new BlogContext();
-
-            var post = await blogContext.Posts.Find(x => x.Id == id).SingleOrDefaultAsync();
+            var post = await this.service.GetPostById(id);
 
             if (post == null)
             {

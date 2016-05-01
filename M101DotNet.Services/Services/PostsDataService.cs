@@ -25,6 +25,44 @@
             this.repository = repository;
         }
 
+        private Func<Comment, CommentServiceModel> CommentToServiceModel => c => new CommentServiceModel
+        {
+            Author = c.Author,
+            Content = c.Content,
+            CreatedAtUtc = c.CreatedAtUtc,
+            Likes = c.Likes
+        };
+
+        private Func<CommentServiceModel, Comment> CommentToDataModel => c => new Comment
+        {
+            Author = c.Author,
+            Content = c.Content,
+            CreatedAtUtc = c.CreatedAtUtc,
+            Likes = c.Likes
+        };
+
+        private Func<Post, PostServiceModel> PostToServiceModel => p => new PostServiceModel
+        {
+            Id = p.Id,
+            Author = p.Author,
+            Content = p.Content,
+            CreatedAtUtc = p.CreatedAtUtc,
+            Title = p.Title,
+            Tags = p.Tags,
+            Comments = p.Comments.Select(this.CommentToServiceModel).ToList()
+        };
+
+        private Func<PostServiceModel, Post> PostToDataModel => p => new Post
+        {
+            Id = p.Id,
+            Author = p.Author,
+            Content = p.Content,
+            CreatedAtUtc = p.CreatedAtUtc,
+            Title = p.Title,
+            Tags = p.Tags,
+            Comments = p.Comments.Select(this.CommentToDataModel).ToList()
+        };
+
         public Task<object> AddNewComment(string postId, CommentServiceModel comment)
         {
             throw new NotImplementedException();
@@ -53,9 +91,10 @@
             return result;
         }
 
-        public Task<PostServiceModel> GetPostById(string id)
+        public async Task<PostServiceModel> GetPostById(string id)
         {
-            throw new NotImplementedException();
+            var entity = (await this.repository.Get(id));
+            return this.PostToServiceModel.Invoke(entity);
         }
 
         public async Task<IQueryable<PostServiceModel>> GetPosts(int skip, int take)
@@ -75,22 +114,7 @@
                 .Skip(skip)
                 .Take(take)
                 .ToList()
-                .Select(p => new PostServiceModel
-                {
-                    Author = p.Author,
-                    Comments = p.Comments.Select(c => new CommentServiceModel
-                    {
-                        Author = c.Author,
-                        Content = c.Content,
-                        CreatedAtUtc = c.CreatedAtUtc,
-                        Likes = c.Likes
-                    }).ToList(),
-                    Content = p.Content,
-                    CreatedAtUtc = p.CreatedAtUtc,
-                    Id = p.Id,
-                    Tags = p.Tags,
-                    Title = p.Title
-                })
+                .Select(this.PostToServiceModel)
                 .AsQueryable();
         }
 
