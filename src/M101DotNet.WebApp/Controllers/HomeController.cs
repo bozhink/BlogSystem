@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
@@ -96,19 +95,7 @@
         [HttpGet]
         public async Task<ActionResult> Posts(string tag = null)
         {
-            var blogContext = new BlogContext();
-
-            Expression<Func<Post, bool>> filter = x => true;
-
-            if (tag != null)
-            {
-                filter = x => x.Tags.Contains(tag);
-            }
-
-            var posts = await blogContext.Posts.Find(filter)
-                .SortByDescending(x => x.CreatedAtUtc)
-                .ToListAsync();
-
+            var posts = (await this.service.GetPostsByTag(tag)).ToList();
             return this.View(posts);
         }
 

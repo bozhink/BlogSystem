@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using Contracts;
@@ -111,9 +112,22 @@
                 .AsQueryable();
         }
 
-        public Task<IQueryable<PostServiceModel>> GetPostsByTag(string tag)
+        public async Task<IQueryable<PostServiceModel>> GetPostsByTag(string tag)
         {
-            throw new NotImplementedException();
+            Expression<Func<Post, bool>> filter = x => true;
+
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                filter = x => x.Tags.Contains(tag);
+            }
+
+            var posts = (await this.repository.All())
+                .Where(filter)
+                .OrderByDescending(p => p.CreatedAtUtc)
+                .ToList()
+                .Select(this.PostToServiceModel);
+
+            return posts.AsQueryable();
         }
 
         // TODO: needs revision
