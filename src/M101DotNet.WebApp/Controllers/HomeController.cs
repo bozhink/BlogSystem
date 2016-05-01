@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using MongoDB.Driver;
-using M101DotNet.WebApp.Models;
-using M101DotNet.WebApp.Models.Home;
-using MongoDB.Bson;
-using System.Linq.Expressions;
-
-namespace M101DotNet.WebApp.Controllers
+﻿namespace M101DotNet.WebApp.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+
+    using Models;
+    using Models.Home;
+    using MongoDB.Driver;
+
     public class HomeController : Controller
     {
         public async Task<ActionResult> Index()
@@ -23,7 +22,11 @@ namespace M101DotNet.WebApp.Controllers
                 .ToListAsync();
 
             var tags = await blogContext.Posts.Aggregate()
-                .Project(x => new { _id = x.Id, Tags = x.Tags })
+                .Project(x => new
+                {
+                    _id = x.Id,
+                    Tags = x.Tags
+                })
                 .Unwind(x => x.Tags)
                 .Group<TagProjection>("{ _id: '$Tags', Count: { $sum: 1 } }")
                 .ToListAsync();
@@ -34,13 +37,13 @@ namespace M101DotNet.WebApp.Controllers
                 Tags = tags
             };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpGet]
         public ActionResult NewPost()
         {
-            return View(new NewPostModel());
+            return this.View(new NewPostModel());
         }
 
         [HttpPost]
@@ -48,7 +51,7 @@ namespace M101DotNet.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
             var blogContext = new BlogContext();
@@ -57,14 +60,14 @@ namespace M101DotNet.WebApp.Controllers
                 Author = User.Identity.Name,
                 Title = model.Title,
                 Content = model.Content,
-                Tags = model.Tags.Split(' ', ',', ';'),
+                Tags = model.Tags.Split(' ', ',', ';').Where(t => !string.IsNullOrWhiteSpace(t)).ToArray(),
                 CreatedAtUtc = DateTime.UtcNow,
                 Comments = new List<Comment>()
             };
 
             await blogContext.Posts.InsertOneAsync(post);
 
-            return RedirectToAction("Post", new { id = post.Id });
+            return this.RedirectToAction(nameof(this.Post), new { id = post.Id });
         }
 
         [HttpGet]
@@ -76,7 +79,7 @@ namespace M101DotNet.WebApp.Controllers
 
             if (post == null)
             {
-                return RedirectToAction("Index");
+                return this.RedirectToAction(nameof(this.Index));
             }
 
             var model = new PostModel
@@ -88,7 +91,7 @@ namespace M101DotNet.WebApp.Controllers
                 }
             };
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpGet]
@@ -107,7 +110,7 @@ namespace M101DotNet.WebApp.Controllers
                 .SortByDescending(x => x.CreatedAtUtc)
                 .ToListAsync();
 
-            return View(posts);
+            return this.View(posts);
         }
 
         [HttpPost]
@@ -115,7 +118,7 @@ namespace M101DotNet.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Post", new { id = model.PostId });
+                return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
             }
 
             var comment = new Comment
@@ -131,8 +134,7 @@ namespace M101DotNet.WebApp.Controllers
                 x => x.Id == model.PostId,
                 Builders<Post>.Update.Push(x => x.Comments, comment));
 
-
-            return RedirectToAction("Post", new { id = model.PostId });
+            return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
         }
 
         [HttpPost]
@@ -140,7 +142,7 @@ namespace M101DotNet.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Post", new { id = model.PostId });
+                return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
             }
 
             var blogContext = new BlogContext();
@@ -151,7 +153,7 @@ namespace M101DotNet.WebApp.Controllers
                 p => p.Id == model.PostId,
                 Builders<Post>.Update.Inc(fieldName, 1));
 
-            return RedirectToAction("Post", new { id = model.PostId });
+            return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
         }
     }
 }
