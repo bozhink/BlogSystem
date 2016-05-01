@@ -1,6 +1,7 @@
-﻿namespace M101DotNet.WebApp.Models
+﻿namespace M101DotNet.Data
 {
     using System.Configuration;
+    using Models;
     using MongoDB.Driver;
 
     public class BlogContext

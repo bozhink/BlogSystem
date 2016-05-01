@@ -1,4 +1,4 @@
-﻿namespace M101DotNet.WebApp.Models
+﻿namespace M101DotNet.Data.Models
 {
     using MongoDB.Bson;
     using MongoDB.Bson.Serialization.Attributes;

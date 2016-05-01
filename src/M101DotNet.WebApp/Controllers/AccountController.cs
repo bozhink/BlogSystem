@@ -5,7 +5,8 @@
     using System.Web;
     using System.Web.Mvc;
 
-    using Models;
+    using Data;
+    using Data.Models;
     using MongoDB.Driver;
     using ViewModels.Account;
 

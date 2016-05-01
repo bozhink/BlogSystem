@@ -1,7 +1,7 @@
 ﻿namespace M101DotNet.WebApp.ViewModels.Home
 {
     using System.Collections.Generic;
-    using Models;
+    using Data.Models;
 
     public class IndexModel
     {

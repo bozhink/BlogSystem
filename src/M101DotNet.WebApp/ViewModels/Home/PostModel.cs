@@ -1,6 +1,6 @@
 ﻿namespace M101DotNet.WebApp.ViewModels.Home
 {
-    using Models;
+    using Data.Models;
 
     public class PostModel
     {

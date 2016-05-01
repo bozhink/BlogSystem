@@ -151,17 +151,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Account\RegisterModel.cs" />
-    <Compile Include="Models\BlogContext.cs" />
     <Compile Include="ViewModels\Account\LoginModel.cs" />
-    <Compile Include="Models\Comment.cs" />
     <Compile Include="ViewModels\Home\CommentLikeModel.cs" />
     <Compile Include="ViewModels\Home\NewCommentModel.cs" />
     <Compile Include="ViewModels\Home\NewPostModel.cs" />
     <Compile Include="ViewModels\Home\IndexModel.cs" />
     <Compile Include="ViewModels\Home\PostModel.cs" />
-    <Compile Include="Models\Post.cs" />
-    <Compile Include="Models\TagProjection.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -222,6 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\M101DotNet.Data\M101DotNet.Data.csproj">
+      <Project>{6694dc91-7b41-4d65-a0fd-6dcdcc887419}</Project>
+      <Name>M101DotNet.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
