@@ -24,8 +24,6 @@
             this.database = this.client.GetDatabase(DatabaseName);
         }
 
-        public IMongoClient Client => this.client;
-
         public IMongoCollection<Post> Posts => this.database.GetCollection<Post>(PostsCollectionName);
 
         public IMongoCollection<User> Users => this.database.GetCollection<User>(UsersCollectionName);
