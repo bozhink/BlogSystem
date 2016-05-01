@@ -23,7 +23,7 @@
             this.repository = repository;
         }
 
-        public Task<object> AddNewUser(UserServiceModel user)
+        public async Task<object> AddNewUser(UserServiceModel user)
         {
             if (user == null)
             {
@@ -37,7 +37,11 @@
                 Name = user.Name
             };
 
-            return this.repository.Add(entity);
+            var result = await this.repository.Add(entity);
+
+            await this.repository.SaveChanges();
+
+            return result;
         }
 
         public async Task<UserServiceModel> GetUser(string email)

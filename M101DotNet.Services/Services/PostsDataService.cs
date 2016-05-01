@@ -79,7 +79,11 @@
             var post = await this.repository.Get(postId);
             post.Comments.Add(this.CommentToDataModel.Invoke(comment));
 
-            return await this.repository.Update(post);
+            var result = await this.repository.Update(post);
+
+            await this.repository.SaveChanges();
+
+            return result;
         }
 
         public async Task<object> AddNewPost(PostServiceModel post)
@@ -94,6 +98,8 @@
             var result = await this.repository.Add(entity);
 
             post.Id = entity.Id;
+
+            await this.repository.SaveChanges();
 
             return result;
         }
@@ -183,7 +189,11 @@
             var post = await this.repository.Get(postId);
             post.Comments.ElementAt(index).Likes += 1;
 
-            return await this.repository.Update(post);
+            var result = await this.repository.Update(post);
+
+            await this.repository.SaveChanges();
+
+            return result;
         }
     }
 }

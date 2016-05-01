@@ -17,5 +17,7 @@
         Task<object> Delete(T entity);
 
         Task<object> Delete(object id);
+
+        Task<int> SaveChanges();
     }
 }

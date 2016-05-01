@@ -1,6 +1,5 @@
 ﻿namespace M101DotNet.WebApp.Controllers
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
@@ -8,8 +7,6 @@
     using Data;
     using Data.Common.Repositories;
     using Data.Models;
-
-    using MongoDB.Driver;
 
     using Services;
     using Services.Contracts;

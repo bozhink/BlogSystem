@@ -122,6 +122,8 @@
             return result;
         }
 
+        public Task<int> SaveChanges() => Task.FromResult(0);
+
         private FilterDefinition<T> GetFilterById(object id)
         {
             var objectId = new ObjectId(id.ToString());
