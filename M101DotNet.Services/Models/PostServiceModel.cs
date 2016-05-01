@@ -23,6 +23,6 @@
 
         public DateTime CreatedAtUtc { get; set; }
 
-        public List<CommentServiceModel> Comments { get; set; }
+        public ICollection<CommentServiceModel> Comments { get; set; }
     }
 }

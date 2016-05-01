@@ -8,6 +8,6 @@
         public string PostId { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public int Index { get; set; }
+        public string CommentId { get; set; }
     }
 }

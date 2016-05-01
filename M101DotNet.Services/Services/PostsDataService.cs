@@ -28,6 +28,7 @@
 
         private Func<Comment, CommentServiceModel> CommentToServiceModel => c => new CommentServiceModel
         {
+            Id = c.Id,
             Author = c.Author,
             Content = c.Content,
             CreatedAtUtc = c.CreatedAtUtc,
@@ -36,6 +37,7 @@
 
         private Func<CommentServiceModel, Comment> CommentToDataModel => c => new Comment
         {
+            Id = c.Id,
             Author = c.Author,
             Content = c.Content,
             CreatedAtUtc = c.CreatedAtUtc,
@@ -174,20 +176,20 @@
             return tags.AsQueryable();
         }
 
-        public async Task<object> LikeComment(string postId, int index)
+        public async Task<object> LikeComment(string postId, string commentId)
         {
             if (string.IsNullOrWhiteSpace(postId))
             {
                 throw new ArgumentNullException(nameof(postId));
             }
 
-            if (index < 0)
+            if (string.IsNullOrWhiteSpace(commentId))
             {
-                throw new ArgumentOutOfRangeException(nameof(index));
+                throw new ArgumentNullException(nameof(commentId));
             }
 
             var post = await this.repository.Get(postId);
-            post.Comments.ElementAt(index).Likes += 1;
+            post.Comments.First(c => c.Id == commentId).Likes += 1;
 
             var result = await this.repository.Update(post);
 

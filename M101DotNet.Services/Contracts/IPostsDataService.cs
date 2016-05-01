@@ -18,6 +18,6 @@
 
         Task<IQueryable<TagServiceModel>> GetTags();
 
-        Task<object> LikeComment(string postId, int index);
+        Task<object> LikeComment(string postId, string commentId);
     }
 }

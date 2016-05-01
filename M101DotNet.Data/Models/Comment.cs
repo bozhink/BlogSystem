@@ -8,7 +8,10 @@
         {
             this.CreatedAtUtc = DateTime.UtcNow;
             this.Likes = 0;
+            this.Id = Guid.NewGuid().ToString();
         }
+
+        public string Id { get; set; }
 
         public string Author { get; set; }
 

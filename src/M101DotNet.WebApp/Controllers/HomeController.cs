@@ -122,7 +122,7 @@
                 return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
             }
 
-            await this.service.LikeComment(model.PostId, model.Index);
+            await this.service.LikeComment(model.PostId, model.CommentId);
 
             return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
         }
