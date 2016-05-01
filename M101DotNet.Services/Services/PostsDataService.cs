@@ -64,9 +64,22 @@
             Comments = p.Comments.Select(this.CommentToDataModel).ToList()
         };
 
-        public Task<object> AddNewComment(string postId, CommentServiceModel comment)
+        public async Task<object> AddNewComment(string postId, CommentServiceModel comment)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(postId))
+            {
+                throw new ArgumentNullException(nameof(postId));
+            }
+
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
+
+            var post = await this.repository.Get(postId);
+            post.Comments.Add(this.CommentToDataModel.Invoke(comment));
+
+            return await this.repository.Update(post);
         }
 
         public async Task<object> AddNewPost(PostServiceModel post)

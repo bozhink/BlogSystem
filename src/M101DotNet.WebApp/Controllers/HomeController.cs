@@ -107,18 +107,13 @@
                 return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
             }
 
-            var comment = new Comment
+            var comment = new CommentServiceModel
             {
                 Author = User.Identity.Name,
-                Content = model.Content,
-                CreatedAtUtc = DateTime.UtcNow
+                Content = model.Content
             };
 
-            var blogContext = new BlogContext();
-
-            await blogContext.Posts.UpdateOneAsync(
-                x => x.Id == model.PostId,
-                Builders<Post>.Update.Push(x => x.Comments, comment));
+            await this.service.AddNewComment(model.PostId, comment);
 
             return this.RedirectToAction(nameof(this.Post), new { id = model.PostId });
         }

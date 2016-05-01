@@ -10,6 +10,7 @@
         public Post()
         {
             this.Comments = new List<Comment>();
+            this.CreatedAtUtc = DateTime.UtcNow;
         }
 
         [BsonRepresentation(BsonType.ObjectId)]
